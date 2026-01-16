@@ -1,16 +1,28 @@
 from coffee_data import *
 
 
-def admin_panel():
+def admin_panel(choice):
     """
-    This needs to be streamlined, please give it another try.
+    A panel that can only be accessed with username and password.
+    Access grants the user to view resources, refill the machine and turn
+    the machine off. 
     """
     admin_username = "Ryan"
     admin_password = "1234"
     attempts = 0
 
     while attempts < 3:
+        username = input("Enter your username:\n")
+        password = input("Enter your password:\n")
+        if username != admin_username and password != admin_password:
+            print("Invalid credentials, please try again.")
         
+        if username == admin_username and password == admin_password:
+            if choice == "off":
+                return True
+            if choice == "refill":
+                # Logic for refilling coffee_data(resources)
+                pass
 
 def process_payment():
     pass
@@ -28,9 +40,10 @@ while machine_state:
         ).lower()
 
     if choice == "admin":
-        admin_panel()
+        state, resources, refill = admin_panel(choice)
 
     if choice in MENU:
+        pennies = input("How many pennies: ")
         valid = process_payment()
         if valid:
             make_coffee()
